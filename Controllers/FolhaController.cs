@@ -22,7 +22,7 @@ namespace API_Folhas.Controllers
         }
 
         // GET - Listar uma folha
-        // Rota: /api/folha/{cpf}/{mes}/{ano}
+        // Rota: /api/folha/buscar/{cpf}/{mes}/{ano}
         [HttpGet]
         [Route("buscar/{cpf}/{mes}/{ano}")]
         public IActionResult ListarUma([FromRoute] string cpf, string mes, string ano)
@@ -35,7 +35,7 @@ namespace API_Folhas.Controllers
 
 
         // GET - Listar folhas do mes
-        // Rota: /api/folha/{mes}/{ano}
+        // Rota: /api/folha/filtrar/{mes}/{ano}
         [HttpGet]
         [Route("filtrar/{mes}/{ano}")]
         public IActionResult ListarMes(string mes, string ano)
@@ -56,8 +56,8 @@ namespace API_Folhas.Controllers
         [Route("cadastrar")]
         public IActionResult Cadastrar([FromBody] Folha folha)
         {
-           Funcionario funcionaio = _context.Funcionarios.FirstOrDefault(f=> f.Cpf == folha.CpfFunc);
-           Folha folhaoutra = new Folha(funcionaio);
+           Funcionario funcionario = _context.Funcionarios.FirstOrDefault(f=> f.Cpf == folha.CpfFunc);
+           Folha folhaoutra = new Folha(funcionario);
             _context.Folhas.Add(folhaoutra);
             _context.SaveChanges();
             return Created("", folhaoutra);
