@@ -28,8 +28,8 @@ namespace API_Folhas.Controllers
         public IActionResult ListarUma([FromRoute] string cpf, string mes, string ano)
         {
             Folha folha = _context.Folhas.FirstOrDefault(a => a.Mes == mes && a.Ano == ano && a.CpfFunc == cpf);
-            Funcionario funcionaio = _context.Funcionarios.FirstOrDefault(f=> f.Cpf == folha.CpfFunc);
-            folha.funcionario = funcionaio;
+            Funcionario funcionario = _context.Funcionarios.FirstOrDefault(f=> f.Cpf == folha.CpfFunc);
+            folha.funcionario = funcionario;
             return Ok(folha);
         }
 
@@ -48,7 +48,7 @@ namespace API_Folhas.Controllers
             }
             return Ok(busca.ToList());
         }
-        
+
 
         // POST - Cadastrar uma folha
         // Rota - /api/folha/cadastrar
@@ -57,10 +57,10 @@ namespace API_Folhas.Controllers
         public IActionResult Cadastrar([FromBody] Folha folha)
         {
            Funcionario funcionaio = _context.Funcionarios.FirstOrDefault(f=> f.Cpf == folha.CpfFunc);
-           Folha folha2 = new Folha(funcionaio);
-            _context.Folhas.Add(folha2);
+           Folha folhaoutra = new Folha(funcionaio);
+            _context.Folhas.Add(folhaoutra);
             _context.SaveChanges();
-            return Created("", folha2);
+            return Created("", folhaoutra);
         }
     }
 }
